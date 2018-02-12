@@ -50,7 +50,7 @@ export class RecommendedPage implements OnDestroy{
                   .subscribe(
                     (response) => {
                       console.log(response);
-                      this.storage.set("dataRatings", response["-L59oIP66Ywy42YJTBNB"]).then(
+                      this.storage.set("dataRatings", response["-L59segked-f5hHFMUoH"]).then(
                         responseStorage => {
                           var t2 = performance.now();
                           console.log("Sad se spremaju ratingsi");
@@ -61,7 +61,6 @@ export class RecommendedPage implements OnDestroy{
                             response => {
                               this.ratings = response
                               this.getRecommended();
-                              console.log("Izašlo");
                             }
                           )
                         }
@@ -75,7 +74,6 @@ export class RecommendedPage implements OnDestroy{
           this.storage.get("dataRatings").then(
             responseStorage => {
               this.ratingsData = responseStorage;
-              console.log(this.ratingsData);
               var t2 = performance.now();
               console.log(t2 - t1);
               this.getRatings = this.movieService.getRatings().subscribe(
@@ -92,9 +90,6 @@ export class RecommendedPage implements OnDestroy{
   }
 
   getRecommended(){
-    var x = [ 5, 23, 2, 5, 9 ],
-    y = [ 3, 21, 2, 5, 14 ];
-    console.log("Similarity: " + similarity(x, y));
     for(var i = 0; i < this.ratings.length; i++){
       this.usersRated(this.ratings[i].name);
     }

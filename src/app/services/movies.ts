@@ -61,7 +61,6 @@ export class MovieService{
     }
     
     getWatchlist(token : string){
-        // this.db.list<any>("RatingsData").remove();
         // const user = this.authService.getActiveUser().uid;
         // return this.http.get("https://watchlist-83bee.firebaseio.com/" + user + "/watchlist.json?auth=" + token)
         // .map(
@@ -93,7 +92,6 @@ export class MovieService{
 
     addRating(data){
         const user = this.authService.getActiveUser().uid;
-        this.db.list<any>("users/" + user).set("ratings",data);
         this.db.list<any>("users/" + user).set("ratings",data);
     }
 
