@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-buttons end>
+      <button ion-button type="button" icon-only (click)="onOptions($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="data != undefined">{{mediaType === 'movie' ? data.title : data.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="data != undefined">
+    <ion-card>
+      <img [src]="data.backdrop_path != null ? 'http://image.tmdb.org/t/p/w342/' + data.backdrop_path : 'assets/imgs/question-mark.png'"
+        [alt]="mediaType == 'movie' ? data.title : data.name">
+      <ion-card-content>
+        <ion-card-title>
+          <h2>
+            <b>{{mediaType === 'movie' ? data.title : data.name}} • {{mediaType === 'movie' ? data.release_date : data.first_air_date}}
+              • {{mediaType === 'movie' ? data.runtime : data.episode_run_time[0]}} min</b>
+
+          </h2>
+        </ion-card-title>
+        <p>{{data.overview}}</p>
+      </ion-card-content>
+      <hr>
+      <ion-list>
+        <ion-item>
+            <rating #rating [(ngModel)]="rate" 
+            readOnly="false"
+            max="5"
+            emptyStarIconName="star-outline" 
+            halfStarIconName="star-half"
+            starIconName="star"
+            nullable="false"
+            (ngModelChange)="onModelChange($event)" item-start></rating>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-row text-center *ngIf="data.genres.length != 0; else genresUnknown">
+            <ion-col col-6 *ngIf="data.genres.length == 1">{{data.genres[0].name}}</ion-col>
+            <ion-col col-6 *ngIf="data.genres.length == 2">{{data.genres[1].name}}</ion-col>
+          </ion-row>
+          <ng-template #genresUnknown>
+          <ion-row>
+            <ion-item text-center><b>Genres unknown!</b></ion-item>
+          </ion-row>
+        </ng-template>
+        </ion-item>
+        <!-- <ion-item text-center>
+          <button ion-button block *ngIf="data.homepage; else noWebsite" (click)="visitWebsite(data.homepage)">Visit Website!</button>
+          <ng-template #noWebsite>
+            <h2>This movie hasn't got his official website!</h2>
+          </ng-template>
+        </ion-item> -->
+        <ion-item text-center *ngIf="data.tagline != ''; else noTagline">
+          <h2><b>{{data.tagline}}</b></h2>
+        </ion-item>
+        <ng-template #noTagline>
+          <ion-item text-center><b>This movie hasn't got tagline,<br> probably nobody cares about it!</b></ion-item>
+        </ng-template>
+      </ion-list>
+    </ion-card>
+  </div>
+</ion-content>

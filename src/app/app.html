@@ -1,0 +1,52 @@
+<ion-menu [content]="nav">
+  <ion-header>
+    <ion-toolbar text-center color="primary" color="dark">
+      <h2 class="colorWhite">Watchlist</h2>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose *ngIf="isAuthenticated" (click)="onHome()">
+          <ion-icon item-left name="home"></ion-icon>
+        Home
+      </button>
+      <button ion-item menuClose (click)="onSignup()" *ngIf="!isAuthenticated">
+        <ion-icon name="person" item-left></ion-icon>
+        Signup
+      </button>
+      <button ion-item menuClose *ngIf="!isAuthenticated" (click)="onLogin()">
+        <ion-icon name="log-in" item-left></ion-icon>
+        Login
+      </button>
+      <button ion-item menuClose *ngIf="isAuthenticated" (click)="nowPlaying()">
+          <ion-icon name="closed-captioning" item-left></ion-icon>
+        Now playing
+      </button>
+      <button ion-item menuClose *ngIf="isAuthenticated" (click)="nowAiring()">
+         <ion-icon name="desktop" item-left></ion-icon>
+        Airing on TV
+      </button>
+      <button ion-item menuClose *ngIf="isAuthenticated" (click)="recommended()">
+        Recommended for you
+      </button>
+      <button ion-item menuClose *ngIf="isAuthenticated" (click)="onFaq()">
+        <ion-icon name="help" item-left></ion-icon>
+          FAQ
+      </button>
+      <button ion-item menuClose (click)="onInfo()">
+        <ion-icon name="information" item-left></ion-icon>
+        Info
+      </button>
+      <button ion-item menuClose *ngIf="isAuthenticated" (click)="onLogout()">
+        <ion-icon name="log-out" item-left></ion-icon>
+        Logout
+      </button>
+      <ion-item text-center>
+          <img src="assets/imgs/logo.png" alt="logo" height="200" width = "200">
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+
+<ion-nav [root]="rootPage" #nav></ion-nav>

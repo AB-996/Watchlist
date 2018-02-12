@@ -1,0 +1,35 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title *ngIf="data != undefined">{{type == 'movie' ? data.title : data.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="data != undefined">
+  <ion-card>
+    <img [src]="'http://image.tmdb.org/t/p/w342/' + data.backdrop_path">
+    <ion-card-content>
+      <ion-card-title>
+        <h2 *ngIf="type == 'movie'"> <b>{{data.title}} • {{data.runtime}}min</b></h2>
+        <h2 *ngIf = "type == 'tv'"><b>{{data.name}}</b></h2>
+      </ion-card-title>
+      <p>{{data.overview}}</p>
+    </ion-card-content>
+    <ion-list>
+      <ion-item *ngIf="type==='movie'">
+        <b>Release date</b> {{data.release_date}}
+      </ion-item>
+      <ion-item *ngIf="type==='tv'">
+        <b>New air date</b> {{data.last_air_date}}
+      </ion-item>
+      <ion-item>
+       <b>Status</b> {{data.status}}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  </div>
+</ion-content>

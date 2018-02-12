@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color = "dark">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{type === 'movie' ? 'Currently playing' : 'Currently on air'}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="emailConfirmed; else template">
+    <ion-card *ngFor="let data of moviesTv" #list (click) = "onDetail(data.id)">
+      <img [src]="'http://image.tmdb.org/t/p/w342/' + data.backdrop_path">
+      <ion-card-content>
+        <ion-card-title text-center>
+          <h2>
+            <b>{{type== 'movie' ? data.title : data.name}}</b>
+          </h2>
+          <h4 *ngIf="type === 'movie'">
+            <b>Release date: {{data.release_date}}</b>
+          </h4>
+          <h4 *ngIf="type==='tv'">
+            <b>First time aired: {{data.first_air_date}}</b>
+            <br>
+            
+          </h4>
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ng-template #template>
+    Please confirm your email to see this content!
+  </ng-template>
+</ion-content>

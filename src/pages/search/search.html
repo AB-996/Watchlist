@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color = "dark">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Search Movies</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSearch(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label icon-only>
+          <ion-icon name="search" item-left></ion-icon>
+        </ion-label>
+        <ion-input ngModel name="movieName" type="text" required></ion-input>
+        <button ion-button item-right small type="submit" [disabled] = "f.invalid">Search</button>
+      </ion-item>
+    </ion-list>
+  </form>
+  <ion-list>
+    <ion-item *ngFor = "let data of dataMedia" (click) = "onView(data)">
+      <ion-thumbnail item-start>
+        <img [src]="data.backdrop_path != null ? 'http://image.tmdb.org/t/p/w342/' + data.poster_path : 'assets/imgs/question-mark.png'" [alt] = "data.media_type == 'movie' ? data.title : data.name">
+      </ion-thumbnail>
+      <h2>{{data.media_type == 'movie' ? data.title : data.name | length}}</h2>
+      <p *ngIf="data.media_type === 'movie'">{{data.media_type | uppercase}} • {{data.release_date ? data.release_date : 'Release unknown'}} </p>
+      <p *ngIf="data.media_type === 'tv'">{{data.media_type | uppercase}} • {{data.first_air_date | date:'dd/MM/yyyy'}} </p>
+      <p *ngIf="movieService.isMovieFavorite(data)">In Favorites! <ion-icon name="star"></ion-icon></p>
+      <p *ngIf="movieService.isMovieInWatchlist(data)">In Watchlist! <ion-icon name="videocam"></ion-icon></p>
+    </ion-item>
+  </ion-list>
+</ion-content>
