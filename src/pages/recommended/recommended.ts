@@ -50,7 +50,7 @@ export class RecommendedPage implements OnDestroy{
                   .subscribe(
                     (response) => {
                       console.log(response);
-                      this.storage.set("dataRatings", response["-L54qMgR4MT7kCd_R2gZ"]).then(
+                      this.storage.set("dataRatings", response["-L59oIP66Ywy42YJTBNB"]).then(
                         responseStorage => {
                           var t2 = performance.now();
                           console.log("Sad se spremaju ratingsi");
@@ -75,6 +75,7 @@ export class RecommendedPage implements OnDestroy{
           this.storage.get("dataRatings").then(
             responseStorage => {
               this.ratingsData = responseStorage;
+              console.log(this.ratingsData);
               var t2 = performance.now();
               console.log(t2 - t1);
               this.getRatings = this.movieService.getRatings().subscribe(
@@ -148,15 +149,15 @@ export class RecommendedPage implements OnDestroy{
         }
       }
     }
-    let sumUser = 0;
+    // let sumUser = 0;
 
-    for(let i = 0; i < this.ratings.length; i++){
-      sumUser += this.ratings[i].rating;
-    }
-    let dividerUser = sumUser / this.ratings.length;
-    for(let i = 0; i < this.ratings.length; i++){
-      this.ratings[i].rating = +( this.ratings[i].rating - dividerUser);
-    }
+    // for(let i = 0; i < this.ratings.length; i++){
+    //   sumUser += this.ratings[i].rating;
+    // }
+    // let dividerUser = sumUser / this.ratings.length;
+    // for(let i = 0; i < this.ratings.length; i++){
+    //   this.ratings[i].rating = +( this.ratings[i].rating - dividerUser);
+    // }
 
     this.ratings.sort((a,b) => { return (a.name > b.name) ? 1 : (a.name < b.name) ? -1 : 0 } );
     for(let i = 0; i < this.fakeMatrixContent.length; i++){
