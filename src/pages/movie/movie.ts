@@ -63,7 +63,8 @@ export class MoviePage {
     } else if (this.mediaType == "tv") {
       this.movieService.getDetailsTv(this.id)
         .subscribe(response => {
-          this.data = response
+          this.data = response;
+          console.log(this.data);
           let rated = this.checkIfInRatings(-1);
           console.log(rated);
           if (rated) {
@@ -132,18 +133,31 @@ export class MoviePage {
     if (this.checkIfInRatings(event)) {
       this.movieService.addRating(this.ratings);
     } else {
-      console.log("Ušlo");
+      var movieData = {
+        name: this.data.title,
+        rating: event,
+        genres: []
+      };
+      console.log(this.data.genres);
+      for(let i = 0; i < this.data.genres.length; i++){
+        console.log("Ušlo");
+        movieData.genres.push(this.data.genres[i].name);
+      }
       if (this.mediaType == "movie") {
-        this.ratings.push({
-          name: this.data.title,
-          rating: event
-        });
+        this.ratings.push(movieData);
         this.movieService.addRating(this.ratings);
       } else if (this.mediaType == "tv") {
-        this.ratings.push({
+        let tvData = {
           name: this.data.name,
-          rating: event
-        });
+          rating: event,
+          genres: []
+        };
+        for(let i = 0; i < this.data.genres.length; i++){
+          console.log(this.data);
+          tvData.genres.push(this.data.genres[i].name);
+        }
+        console.log(tvData);
+        this.ratings.push(tvData);
         this.movieService.addRating(this.ratings);
       }
     }

@@ -27,7 +27,8 @@
         Airing on TV
       </button>
       <button ion-item menuClose *ngIf="isAuthenticated" (click)="recommended()">
-        Recommended for you
+        <ion-icon name="thumbs-up" item-left></ion-icon>
+        Recommended
       </button>
       <button ion-item menuClose *ngIf="isAuthenticated" (click)="onFaq()">
         <ion-icon name="help" item-left></ion-icon>

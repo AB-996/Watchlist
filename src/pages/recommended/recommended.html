@@ -1,14 +1,14 @@
 
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="dark">
     <ion-title>Recommended for you</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding *ngIf = "ratings.length >= 5; else notRatedEnough">
+<ion-content *ngIf = "ratings.length >= 5; else notRatedEnough" style="margin-top:50px">
   <ion-list>
     <ion-item *ngFor = "let movie of recommended">
       {{movie.movie_id}}

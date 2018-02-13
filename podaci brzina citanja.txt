@@ -1,0 +1,11 @@
+
+dobavljanje iz baze svaki put kad se ucita stranica:
+~ 2421.0000000020955
+
+dobavljane iz baze ako ne postoji u localstorage-u i spremanje u njega:
+~ 3783.0000000163
+
+dobavljanje iz localstorage-a svaki put kad se stranica ucita
+~365.0000012222
+
+
