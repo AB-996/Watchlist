@@ -50,41 +50,17 @@ export class MoviePage {
       this.movieService.getDetailsMovie(this.id)
         .subscribe(
           response => {
-            this.data = response
-            console.log(this.data);
-            console.log(this.data.runtime)
-            let rated = this.checkIfInRatings(-1);
-            console.log(rated);
-            if (rated) {
-              this.rate = rated;
-            }
+            alert("Ušloo");
+            this.data = response;
+            this.getRatings();
           }
         )
     } else if (this.mediaType == "tv") {
       this.movieService.getDetailsTv(this.id)
         .subscribe(response => {
           this.data = response;
-          console.log(this.data);
-          let rated = this.checkIfInRatings(-1);
-          console.log(rated);
-          if (rated) {
-            this.rate = rated;
-          }
+          this.getRatings();
         })
-    }
-
-    this.movieService.getRatings().subscribe(
-      data => {
-        this.ratings = data
-        console.log(this.ratings);
-      },
-      error => {console.log("error")}
-    )
-
-    let rated = this.checkIfInRatings(-1);
-    console.log(rated);
-    if (rated) {
-      this.rate = rated;
     }
   }
 
@@ -96,18 +72,33 @@ export class MoviePage {
     let browser = this.iab.create(url, "_self", options);
   }
 
+  getRatings(){
+    this.movieService.getRatings().subscribe(
+      data => {
+        this.ratings = data;
+        for(var i = 0; i < this.ratings.length; i++){
+          alert(this.ratings[i].name);
+        }
+        let rated = this.checkIfInRatings(-1);
+        console.log(rated);
+        if (rated) {
+          this.rate = rated;
+        }
+      },
+      error => {console.log("error")}
+    )
+  }
+
   checkIfInRatings(event) {
     if (this.mediaType == "movie") {
       for (let i = 0; i < this.ratings.length; i++) {
         if (this.ratings[i].name == this.data.title) {
-          console.log("Uša je za zvijezdice");
           console.log(this.ratings[i].name);
           console.log(this.data.title);
           if (event != -1) {
             this.ratings[i].rating = event;
             return true;
           } else {
-            console.log("Uša je za zvjezdice triba vratit");
             return this.ratings[i].rating;
           }
         }

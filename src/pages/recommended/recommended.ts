@@ -5,7 +5,8 @@ import {
 import {
   IonicPage,
   NavController,
-  NavParams
+  NavParams,
+  LoadingController
 } from 'ionic-angular';
 import {
   MovieService
@@ -37,11 +38,14 @@ export class RecommendedPage implements OnDestroy {
   fakeMatrixContent = [];
   neighbourhood = [];
   recommended = [];
+  load;
 
   constructor(private movieService: MovieService, private authService: AuthService,
-    private storage: Storage) {}
+    private storage: Storage, private loadingCtrl : LoadingController) {}
 
   ionViewDidLoad() {
+    this.load = this.loadingCtrl.create({content: "Calculating..."});
+    this.load.present();
     this.storage.keys().then(
       response => {
         if (response.indexOf("dataRatings") == -1) {
@@ -104,6 +108,7 @@ export class RecommendedPage implements OnDestroy {
     this.neighbourhood = this.calculateSimilarity();
     console.log(this.neighbourhood);
     this.recommended = this.getMoviesFromNeighbours();
+    this.load.dismiss();
   }
 
 
